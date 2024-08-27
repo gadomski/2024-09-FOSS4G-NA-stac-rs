@@ -164,6 +164,62 @@ $ stac item \
 				<section>
 					<h1>Translate</h1>
 
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
+$ stac translate 1000-sentinel-items.json 1000-sentinel-items.parquet
+$ du -h 1000-sentinel-items.*
+ 24M	1000-sentinel-items.json
+6.3M	1000-sentinel-items.parquet
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Interlude: Geoparquet</h2>
+
+					<ul>
+						<li>
+							Stores geospatial vector data in Parquet, a columnar format for tabular data
+						</li>
+						<li>
+							v1.1.0 release May 2024
+						</li>
+						<li>
+							<a href="https://github.com/geoarrow/geoarrow">geoarrow</a> is a related specification
+							that describes memory layout and field-level metadata
+						</li>
+					</ul>
+				</section>
+				<section>
+					<p>
+						🤔 STAC items are geospatial vectors
+					</p>
+				</section>
+				<section>
+					<h1>stac-geoparquet</h1>
+
+					<ul>
+						<li>
+							<a
+								href="https://github.com/stac-utils/stac-geoparquet">https://github.com/stac-utils/stac-geoparquet</a>
+						</li>
+						<li>
+							Moves <code>properties</code> to the top level, along with a couple other tweaks
+						</li>
+						<li>
+							<strong>stac-rs</strong> includes an implementation in the <strong>stac-geoparquet</strong>
+							and <strong>stac-arrow</strong> crates
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>For servers</h1>
+
+					<img src="img/waiter.jpg" width="50%" />
+				</section>
+				<section>
+					<h1>Serve!</h1>
 
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ stac translate 1000-sentinel-items.json 1000-sentinel-items.parquet
@@ -174,11 +230,8 @@ $ du -h 1000-sentinel-items.*
 				</section>
 			</section>
 			<section>
-				<h1>Interlude: Geoparquet</h1>
-			</section>
-			<section>
 				<h1>stac-rs crates</h1>
-				<img src="img/stac-rs-crates.png" width="50%" />
+				<img src=" img/stac-rs-crates.png" width="50%" />
 			</section>
 		</div>
 	</div>
