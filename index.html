@@ -78,12 +78,103 @@
 				</section>
 			</section>
 			<section>
-				<h1>Why <strong>stac-rs</strong>?</h1>
-				<ul>
-					<li>Ecosystem diversity</li>
-					<li>Improve support for servers (developers) and consumers (data users)</li>
-					<li>Language binding support (e.g. Python, WASM)</li>
-				</ul>
+				<section>
+					<h1>Why <strong>stac-rs</strong>?</h1>
+					<ul>
+						<li>Ecosystem diversity</li>
+						<li>Improve support for servers (developers) and consumers (data users)</li>
+						<li>Language binding support (e.g. Python, WASM)</li>
+					</ul>
+				</section>
+				<section>
+					<h1>Installing</h1>
+
+					<pre><code data-trim data-noescape class="language-shell">
+						$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+						$ cargo install stac-cli
+					</code></pre>
+
+					<p>
+						Then:
+					</p>
+
+					<pre><code data-trim data-noescape class="language-shell">
+$ stac --help
+Command line interface for stac-rs
+
+Usage: stac [OPTIONS] <COMMAND>
+
+Commands:
+  item       Creates a STAC Item
+  migrate    Migrates a STAC value from one version to another
+  search     Searches a STAC API
+  serve      Serves a STAC API
+  sort       Sorts the fields of STAC object
+  translate  Translates STAC values between formats
+  validate   Validates a STAC object or API endpoint using json-schema validation
+  help       Print this message or the help of the given subcommand(s)
+
+Options:
+  -c, --compact                        Use a compact representation of the output, if possible
+  -i, --input-format <INPUT_FORMAT>    The input format
+  -o, --output-format <OUTPUT_FORMAT>  The output format
+  -h, --help                           Print help
+  -V, --version                        Print version
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>For producers</h1>
+
+					<img src="img/chef.png" width="50%" />
+				</section>
+				<section>
+					<h1>Create</h1>
+
+					<pre><code data-trim data-noescape class="language-shell">
+$ stac item an-id
+{
+	"type": "Feature",
+	"stac_version": "1.0.0",
+	"id": "an-id",
+	"geometry": null,
+	"properties": {
+		"datetime": "2024-08-27T20:37:29.293151Z"
+	},
+	"links": [],
+	"assets": {}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h1>Create (raster)</h1>
+
+					<pre style="font-size: large;"><code data-trim data-noescape class="language-shell">
+$ stac item \
+  https://storage.googleapis.com/open-cogs/stac-examples/20201211_223832_CS2.tif \
+  > item.json
+					</code></pre>
+
+					<div class="r-stack">
+						<img src="img/raster.png" width="50%" />
+						<img src="img/item.png" width="50%" class="fragment" />
+					</div>
+				</section>
+				<section>
+					<h1>Translate</h1>
+
+
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
+$ stac translate 1000-sentinel-items.json 1000-sentinel-items.parquet
+$ du -h 1000-sentinel-items.*
+ 24M	1000-sentinel-items.json
+6.3M	1000-sentinel-items.parquet
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<h1>Interlude: Geoparquet</h1>
 			</section>
 			<section>
 				<h1>stac-rs crates</h1>
