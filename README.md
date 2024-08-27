@@ -1,5 +1,7 @@
 # _stac-rs: high-performance, reliable STAC tooling with Rust_
 
+[![Slides](https://img.shields.io/badge/slides-brightgreen?style=for-the-badge)](https://www.gadom.ski/2024-09-FOSS4G-NA-stac-rs/)
+
 This is my FOSS4G-NA 2024 talk.
 
 ## Abstract
