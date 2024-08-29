@@ -48,6 +48,11 @@
 						<li><a href="https://github.com/radiantearth/stac-api-spec">API</a> v1.0.0 released April 2023
 						</li>
 					</ul>
+
+					<blockquote>
+						STAC is a map to the data. <br />
+						&mdash; Hobu
+					</blockquote>
 				</section>
 				<section>
 					<h1>Development</h1>
@@ -94,11 +99,12 @@
 						$ cargo install stac-cli
 					</code></pre>
 
-					<p>
-						Then:
-					</p>
+					<div class="fragment">
+						<p>
+							Then:
+						</p>
 
-					<pre><code data-trim data-noescape class="language-shell">
+						<pre><code data-trim data-noescape class="language-shell">
 $ stac --help
 Command line interface for stac-rs
 
@@ -121,6 +127,7 @@ Options:
   -h, --help                           Print help
   -V, --version                        Print version
 					</code></pre>
+					</div>
 				</section>
 			</section>
 			<section>
@@ -160,6 +167,33 @@ $ stac item \
 						<img src="img/raster.png" width="50%" />
 						<img src="img/item.png" width="50%" class="fragment" />
 					</div>
+				</section>
+				<section>
+					<h1>Migrate</h1>
+
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: medium;">
+						$ stac migrate bands-v1.0.0.json --version 1.1.0-beta.1 | jq '.stac_version, .assets.example.bands'   
+						"1.1.0-beta.1"
+						[
+						  {
+							"name": "r",
+							"eo:common_name": "red"
+						  },
+						  {
+							"name": "g",
+							"eo:common_name": "green"
+						  },
+						  {
+							"name": "b",
+							"eo:common_name": "blue"
+						  },
+						  {
+							"name": "nir",
+							"eo:common_name": "nir",
+							"raster:spatial_resolution": 30
+						  }
+						]
+					</code></pre>
 				</section>
 				<section>
 					<h1>Translate</h1>
