@@ -311,6 +311,40 @@ Serving a STAC API at http://127.0.0.1:7822 using a pgstac backend
 						<img src="img/stac-browser-items.png">
 					</p>
 				</section>
+				<section>
+					<h1>"Benchmarks"</h1>
+
+					<div style="font-size: x-large;">
+						<table>
+							<tr>
+								<th>Test</th>
+								<th>stac-rs</th>
+								<th>stac-fastapi</th>
+								<th>Speedup</th>
+							</tr>
+							<tr>
+								<td>One page of items</td>
+								<td>48.3 ms ± 3.2 ms</td>
+								<td>62.0 ms ± 2.2 ms</td>
+								<td>22%</td>
+							</tr>
+							<tr>
+								<td>Search everything</td>
+								<td>4.460 s ± 0.061 s</td>
+								<td>5.894 s ± 0.045 s</td>
+								<td>24%</td>
+							</tr>
+						</table>
+					</div>
+					<div style="font-size: x-large; margin-top: 26px;">
+						<ul>
+							<li>1000 Sentinel-2 items over Colorado</li>
+							<li><strong>pgstac</strong> backend</li>
+							<li><code>localhost</code></li>
+						</ul>
+					</div>
+
+				</section>
 			</section>
 			<section>
 				<h1>stac-rs crates</h1>

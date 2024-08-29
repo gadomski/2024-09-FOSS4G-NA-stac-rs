@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+set -e
+
+curl http://127.0.0.1:7822/collections/sentinel-2-l2a/items

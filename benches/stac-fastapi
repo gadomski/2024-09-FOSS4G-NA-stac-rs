@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+set -e
+
+export APP_HOST=localhost
+export APP_PORT=7822
+export POSTGRES_USER=username
+export POSTGRES_PASS=password
+export POSTGRES_DBNAME=postgis
+export POSTGRES_HOST_READER=localhost
+export POSTGRES_HOST_WRITER=localhost
+export POSTGRES_PORT=5432
+
+python -m stac_fastapi.pgstac.app

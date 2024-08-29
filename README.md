@@ -23,6 +23,12 @@ We present [**stac-rs**](https://github.com/stac-utils/stac-rs), a Rust implemen
 
 In this talk, we walk through the components of **stac-rs**, describe some of the advantages and disadvantages of a Rust implementation of the STAC spec, and provide some performance benchmarks against other widely used tooling (e.g. **stac-fastapi** and **stac-server**).
 
+## Benchmarks
+
+Scripts used to run "benchmarks" are in [benches](./benches/).
+These aren't guaranteed to be reproducible, as they can require setting up databases, doing searches, etc etc.
+But it's at least a try at showing our work.
+
 ## Acknowledgements
 
 These slides are built on [reveal.js](https://revealjs.com/).
