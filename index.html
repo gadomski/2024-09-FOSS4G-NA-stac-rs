@@ -32,7 +32,7 @@
 					</p>
 				</section>
 				<section>
-					<h1>No Rust code</h1>
+					<p>No Rust code in these slides</p>
 					<p>
 						🤯
 					</p>
@@ -94,10 +94,17 @@
 				<section>
 					<h1>Installing</h1>
 
+					<p>
+						Install Rust:
 					<pre><code data-trim data-noescape class="language-shell">
 						$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+					</code></pre>
+
+					Then, install <strong>stac-cli</strong>:
+					<pre><code data-trim data-noescape class="language-shell">
 						$ cargo install stac-cli
 					</code></pre>
+					</p>
 
 					<div class="fragment">
 						<p>
@@ -200,6 +207,8 @@ $ stac item \
 
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ stac translate 1000-sentinel-items.json 1000-sentinel-items.parquet
+					</code></pre>
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ du -h 1000-sentinel-items.*
  24M	1000-sentinel-items.json
 6.3M	1000-sentinel-items.parquet
@@ -237,11 +246,13 @@ $ du -h 1000-sentinel-items.*
 								href="https://github.com/stac-utils/stac-geoparquet">https://github.com/stac-utils/stac-geoparquet</a>
 						</li>
 						<li>
+							<strong>stac-rs</strong> includes an implementation
+						</li>
+						<li>
 							Moves <code>properties</code> to the top level, along with a couple other tweaks
 						</li>
 						<li>
-							<strong>stac-rs</strong> includes an implementation in the <strong>stac-geoparquet</strong>
-							and <strong>stac-arrow</strong> crates
+							😢 STAC isn't perfect for GeoParquet
 						</li>
 					</ul>
 				</section>
