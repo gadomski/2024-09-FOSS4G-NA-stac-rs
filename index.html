@@ -264,14 +264,47 @@ $ du -h 1000-sentinel-items.*
 					<img src="img/waiter.jpg" width="50%" />
 				</section>
 				<section>
-					<h1>Serve!</h1>
+					<h1>Serve</h1>
 
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
-$ stac translate 1000-sentinel-items.json 1000-sentinel-items.parquet
-$ du -h 1000-sentinel-items.*
- 24M	1000-sentinel-items.json
-6.3M	1000-sentinel-items.parquet
+$ stac serve spec-examples/v1.0.0/collection.json
+Serving a STAC API at http://127.0.0.1:7822 using a memory backend
 					</code></pre>
+
+					<p>
+						<img src="img/stac-browser.png">
+					</p>
+				</section>
+				<section>
+					<p>
+
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+	$ stac search https://planetarycomputer.microsoft.com/api/stac/v1 -c sentinel-2-l2a \
+		--intersects '{"type":"Point","coordinates":[-105.1019,40.1672]}' \
+		--max-items 1000 --sortby="-properties.datetime" 1000-sentinel-2-items.json
+						</code></pre>
+
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+	$ stac serve 1000-sentinel-items.json
+	Serving a STAC API at http://127.0.0.1:7822 using a memory backend
+						</code></pre>
+					</p>
+
+					<p>
+						<img src="img/stac-browser-items.png">
+					</p>
+				</section>
+				<section>
+					<h1>Serve pgstac</h1>
+
+					<p>
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+$ stac serve \
+	--pgstac postgresql://username:password@localhost:5432/postgis \
+	1000-sentinel-2-items.json   
+Serving a STAC API at http://127.0.0.1:7822 using a pgstac backend
+						</code></pre>
+					</p>
 				</section>
 			</section>
 			<section>
