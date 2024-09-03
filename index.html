@@ -95,7 +95,7 @@
 					<h1>Caveat</h1>
 
 					<p>
-						Not used in production AFAIK
+						⚠️ Not used in production AFAIK
 					</p>
 				</section>
 				<section>
@@ -370,6 +370,69 @@ Serving a STAC API at http://127.0.0.1:7822 using a pgstac backend
 						</ul>
 					</div>
 
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Consumers</h1>
+
+					<img src="img/eating.jpg" width="50%" />
+				</section>
+				<section>
+					<h1>Search</h1>
+
+
+					<div class="r-stack">
+						<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+$ stac search https://planetarycomputer.microsoft.com/api/stac/v1 \
+	-c sentinel-2-l2a \
+	--intersects "$(cat ~/Locations/colorado.json)" \
+	--max-items 100 --sortby="-properties.datetime" \
+	100-sentinel-2-items.json
+						</code></pre>
+						<pre class="fragment"><code data-trim data-noescape class="language-shell" style="font-size: large;">
+$ stac search https://planetarycomputer.microsoft.com/api/stac/v1 \
+	-c sentinel-2-l2a \
+	--intersects "$(cat ~/Locations/colorado.json)" \
+	--max-items 100 --sortby="-properties.datetime" \
+	100-sentinel-2-items.parquet
+						</code></pre>
+
+					</div>
+				</section>
+				<section>
+					<h1>Search with DuckDB</h1>
+
+					<p>
+						⚠️ Experimental
+					</p>
+
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+$ cargo install stac-cli -F duckdb
+						</code></pre>
+
+					<p>Then:</p>
+
+					<div class="r-stack">
+						<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+$ stac search 100-sentinel-2-items.parquet \
+	--intersects "$(cat ~/Locations/longmont.json)" \
+	| jq length
+3
+						</code></pre>
+						<pre class="fragment"><code data-trim data-noescape class="language-shell" style="font-size: large;">
+$ stac search http://localhost:8080/100-sentinel-2-items.parquet \
+	--intersects "$(cat ~/Locations/longmont.json)" \
+	| jq length
+3
+						</code></pre>
+					</div>
+				</section>
+				<section>
+					<div class="r-stack">
+						<img src="img/stac-usage.png" class="fragment fade-out" data-fragment-index="1" />
+						<img src="img/stac-usage-no-api-server.png" class="fragment" data-fragment-index="1" />
+					</div>
 				</section>
 			</section>
 			<section>
