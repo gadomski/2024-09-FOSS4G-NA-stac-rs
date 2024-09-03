@@ -30,6 +30,9 @@
 					<p>
 						by Pete Gadomski
 					</p>
+					<p style="font-size: 24px;">
+						<a href="https://github.com/gadomski/">@gadomski</a>
+					</p>
 				</section>
 				<section>
 					<p>No Rust code in these slides</p>
@@ -119,10 +122,10 @@
 						</p>
 
 						<pre><code data-trim data-noescape class="language-shell">
-$ stac --help
+$ stacrs --help
 Command line interface for stac-rs
 
-Usage: stac [OPTIONS] <COMMAND>
+Usage: stacrs [OPTIONS] <COMMAND>
 
 Commands:
   item       Creates a STAC Item
@@ -143,6 +146,21 @@ Options:
 					</code></pre>
 					</div>
 				</section>
+				<section>
+					<h1>Installing</h1>
+
+					<p>
+						Doesn't require Rust, but has fewer features.
+					</p>
+					<pre><code data-trim data-noescape class="language-shell">
+						$ pip install stacrs
+					</code></pre>
+
+					<pre><code data-trim data-noescape class="language-shell">
+						$ stacrs --help
+					</code></pre>
+				</section>
+
 			</section>
 			<section>
 				<section>
@@ -154,7 +172,7 @@ Options:
 					<h1>Create</h1>
 
 					<pre><code data-trim data-noescape class="language-shell">
-$ stac item an-id
+$ stacrs item an-id
 {
 	"type": "Feature",
 	"stac_version": "1.0.0",
@@ -172,7 +190,7 @@ $ stac item an-id
 					<h1>Create (raster)</h1>
 
 					<pre style="font-size: large;"><code data-trim data-noescape class="language-shell">
-$ stac item \
+$ stacrs item \
   https://storage.googleapis.com/open-cogs/stac-examples/20201211_223832_CS2.tif \
   > item.json
 					</code></pre>
@@ -199,7 +217,7 @@ $ stac item \
 					<h1>Migrate</h1>
 
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: medium;">
-						$ stac migrate bands-v1.0.0.json --version 1.1.0-beta.1 | jq '.stac_version, .assets.example.bands'   
+						$ stacrs migrate bands-v1.0.0.json --version 1.1.0-beta.1 | jq '.stac_version, .assets.example.bands'   
 						"1.1.0-beta.1"
 						[
 						  {
@@ -226,7 +244,7 @@ $ stac item \
 					<h1>Translate</h1>
 
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
-$ stac translate 1000-sentinel-items.json 1000-sentinel-items.parquet
+$ stacrs translate 1000-sentinel-items.json 1000-sentinel-items.parquet
 					</code></pre>
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ du -h 1000-sentinel-items.*
@@ -291,7 +309,7 @@ $ du -h 1000-sentinel-items.*
 					<h1>Serve</h1>
 
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
-$ stac serve spec-examples/v1.0.0/collection.json
+$ stacrs serve spec-examples/v1.0.0/collection.json
 Serving a STAC API at http://127.0.0.1:7822 using a memory backend
 					</code></pre>
 
@@ -305,13 +323,13 @@ Serving a STAC API at http://127.0.0.1:7822 using a memory backend
 					<p>
 
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
-	$ stac search https://planetarycomputer.microsoft.com/api/stac/v1 -c sentinel-2-l2a \
+	$ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 -c sentinel-2-l2a \
 		--intersects '{"type":"Point","coordinates":[-105.1019,40.1672]}' \
 		--max-items 1000 --sortby="-properties.datetime" 1000-sentinel-2-items.json
 						</code></pre>
 
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
-	$ stac serve 1000-sentinel-items.json
+	$ stacrs serve 1000-sentinel-items.json
 	Serving a STAC API at http://127.0.0.1:7822 using a memory backend
 						</code></pre>
 					</p>
@@ -325,7 +343,7 @@ Serving a STAC API at http://127.0.0.1:7822 using a memory backend
 
 					<p>
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
-$ stac serve \
+$ stacrs serve \
 	--pgstac postgresql://username:password@localhost:5432/postgis \
 	1000-sentinel-2-items.json   
 Serving a STAC API at http://127.0.0.1:7822 using a pgstac backend
@@ -384,14 +402,14 @@ Serving a STAC API at http://127.0.0.1:7822 using a pgstac backend
 
 					<div class="r-stack">
 						<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
-$ stac search https://planetarycomputer.microsoft.com/api/stac/v1 \
+$ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 \
 	-c sentinel-2-l2a \
 	--intersects "$(cat ~/Locations/colorado.json)" \
 	--max-items 100 --sortby="-properties.datetime" \
 	100-sentinel-2-items.json
 						</code></pre>
 						<pre class="fragment"><code data-trim data-noescape class="language-shell" style="font-size: large;">
-$ stac search https://planetarycomputer.microsoft.com/api/stac/v1 \
+$ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 \
 	-c sentinel-2-l2a \
 	--intersects "$(cat ~/Locations/colorado.json)" \
 	--max-items 100 --sortby="-properties.datetime" \
@@ -415,13 +433,13 @@ $ cargo install stac-cli -F duckdb
 
 					<div class="r-stack">
 						<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
-$ stac search 100-sentinel-2-items.parquet \
+$ stacrs search 100-sentinel-2-items.parquet \
 	--intersects "$(cat ~/Locations/longmont.json)" \
 	| jq length
 3
 						</code></pre>
 						<pre class="fragment"><code data-trim data-noescape class="language-shell" style="font-size: large;">
-$ stac search http://localhost:8080/100-sentinel-2-items.parquet \
+$ stacrs search http://localhost:8080/100-sentinel-2-items.parquet \
 	--intersects "$(cat ~/Locations/longmont.json)" \
 	| jq length
 3
