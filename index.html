@@ -436,8 +436,40 @@ $ stac search http://localhost:8080/100-sentinel-2-items.parquet \
 				</section>
 			</section>
 			<section>
+				<h1>Python bindings</h1>
+
+				<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+$ pip install stacrs
+						</code></pre>
+
+				<p>Then:</p>
+
+				<pre><code data-trim data-noescape class="language-python" style="font-size: large;">
+import stacrs
+
+item = stacrs.migrate_href("item.json", version="1.1.0-beta.1")
+assert item["stac_version"] == "1.1.0-beta.1"
+						</code></pre>
+			</section>
+			<section>
 				<h1>stac-rs crates</h1>
-				<img src=" img/stac-rs-crates.png" width="50%" />
+				<img src=" img/stac-crates.png" width="50%" />
+			</section>
+			<section>
+				<h1>Fin</h1>
+
+				<img src="img/rustacean-and-stac.png" width="25%" />
+
+				<p>
+					Thank you for your time
+				</p>
+
+				<ul style="font-size: x-large;">
+					<li><a href="https://github.com/stac-utils/stac-rs">https://github.com/stac-utils/stac-rs</a></li>
+					<li><a
+							href="https://github.com/gadomski/2024-09-FOSS4G-NA-stac-rs/">https://github.com/gadomski/2024-09-FOSS4G-NA-stac-rs/</a>
+					</li>
+				</ul>
 			</section>
 		</div>
 	</div>
