@@ -58,6 +58,13 @@
 					</blockquote>
 				</section>
 				<section>
+					<h1>STAC entities</h1>
+					<div class="r-stack">
+						<img src="img/stac-entities.png" width="50%" />
+						<img src="img/stac-entities-with-assets.png" class="fragment" width="50%" />
+					</div>
+				</section>
+				<section>
 					<h1>Development</h1>
 					<img src="img/open-spec-development.png" />
 				</section>
@@ -74,13 +81,6 @@
 					</div>
 				</section>
 				<section>
-					<h1>STAC entities</h1>
-					<div class="r-stack">
-						<img src="img/stac-entities.png" width="50%" />
-						<img src="img/stac-entities-with-assets.png" class="fragment" width="50%" />
-					</div>
-				</section>
-				<section>
 					<h1>STAC usage</h1>
 					<img src="img/stac-usage.png" width="70%" />
 				</section>
@@ -90,7 +90,12 @@
 					<h1>Why <strong>stac-rs</strong>?</h1>
 					<ul>
 						<li>Ecosystem diversity</li>
-						<li>Improve support for servers (developers) and consumers (data users)</li>
+						<li>Fill tooling gaps for
+							<ul>
+								<li>Servers (developers)</li>
+								<li>Consumers (data users)</li>
+							</ul>
+						</li>
 						<li>Language binding support (e.g. Python, WASM)</li>
 					</ul>
 				</section>
@@ -105,14 +110,14 @@
 					<h1>Installing</h1>
 
 					<p>
-						Install Rust:
-					<pre><code data-trim data-noescape class="language-shell">
-						$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-					</code></pre>
-
-					Then, install <strong>stac-cli</strong>:
 					<pre><code data-trim data-noescape class="language-shell">
 						$ cargo install stac-cli
+					</code></pre>
+
+					or
+
+					<pre><code data-trim data-noescape class="language-shell">
+						$ pip install stacrs-cli
 					</code></pre>
 					</p>
 
@@ -123,6 +128,8 @@
 
 						<pre><code data-trim data-noescape class="language-shell">
 $ stacrs --help
+					</code></pre>
+						<pre><code data-trim data-noescape class="language-text">
 Command line interface for stac-rs
 
 Usage: stacrs [OPTIONS] <COMMAND>
@@ -146,21 +153,6 @@ Options:
 					</code></pre>
 					</div>
 				</section>
-				<section>
-					<h1>Installing</h1>
-
-					<p>
-						Doesn't require Rust, but has fewer features.
-					</p>
-					<pre><code data-trim data-noescape class="language-shell">
-						$ pip install stacrs
-					</code></pre>
-
-					<pre><code data-trim data-noescape class="language-shell">
-						$ stacrs --help
-					</code></pre>
-				</section>
-
 			</section>
 			<section>
 				<section>
@@ -173,6 +165,8 @@ Options:
 
 					<pre><code data-trim data-noescape class="language-shell">
 $ stacrs item an-id
+					</code></pre>
+					<pre><code data-trim data-noescape class="language-json">
 {
 	"type": "Feature",
 	"stac_version": "1.0.0",
@@ -191,8 +185,7 @@ $ stacrs item an-id
 
 					<pre style="font-size: large;"><code data-trim data-noescape class="language-shell">
 $ stacrs item \
-  https://storage.googleapis.com/open-cogs/stac-examples/20201211_223832_CS2.tif \
-  > item.json
+  https://storage.googleapis.com/open-cogs/stac-examples/20201211_223832_CS2.tif
 					</code></pre>
 
 					<div class="r-stack">
@@ -216,8 +209,11 @@ $ stacrs item \
 				<section>
 					<h1>Migrate</h1>
 
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: medium;">
-						$ stacrs migrate bands-v1.0.0.json --version 1.1.0-beta.1 | jq '.stac_version, .assets.example.bands'   
+					<pre><code data-trim data-noescape class="language-shell">
+						$ stacrs migrate bands-v1.0.0.json --version 1.1.0-beta.1 \
+							| jq '.stac_version, .assets.example.bands'   
+					</code></pre>
+					<pre><code data-trim data-noescape class="language-json">
 						"1.1.0-beta.1"
 						[
 						  {
@@ -243,8 +239,10 @@ $ stacrs item \
 				<section>
 					<h1>Translate</h1>
 
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
-$ stacrs translate 1000-sentinel-items.json 1000-sentinel-items.parquet
+					<pre><code data-trim data-noescape class="language-shell">
+$ stacrs translate \
+	1000-sentinel-items.json \
+	1000-sentinel-items.parquet
 					</code></pre>
 					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ du -h 1000-sentinel-items.*
