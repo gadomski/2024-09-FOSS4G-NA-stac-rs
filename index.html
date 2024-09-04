@@ -46,6 +46,8 @@
 					<h1>A bit about STAC</h1>
 
 					<ul>
+						<li>Spatio-Temporal Asset Catalog specification</li>
+						<li>Based on the GeoJSON specification</li>
 						<li>Open community specification</li>
 						<li><a href="https://github.com/radiantearth/stac-spec/">Core</a> v1.0.0 released May 2021</li>
 						<li><a href="https://github.com/radiantearth/stac-api-spec">API</a> v1.0.0 released April 2023
@@ -89,7 +91,7 @@
 				<section>
 					<h1>Why <strong>stac-rs</strong>?</h1>
 					<ul>
-						<li>Ecosystem diversity</li>
+						<li>Software ecosystem diversity</li>
 						<li>Fill tooling gaps for
 							<ul>
 								<li>Servers (developers)</li>
@@ -162,6 +164,10 @@ Options:
 				</section>
 				<section>
 					<h1>Create</h1>
+
+					<p>
+						Pete to make notes about how this is unixy
+					</p>
 
 					<pre><code data-trim data-noescape class="language-shell">
 $ stacrs item an-id
@@ -308,7 +314,8 @@ $ stacrs translate --geoparquet-compression snappy \
 						</li>
 						<li>
 							For more, see the <a
-								href="https://cloudnativegeo.org/blog/2024/08/introduction-to-stac-geoparquet/">CNG blog
+								href="https://cloudnativegeo.org/blog/2024/08/introduction-to-stac-geoparquet/">Cloud-Native
+								Geospatial blog
 								post</a>
 						</li>
 					</ul>
@@ -442,21 +449,26 @@ Serving a STAC API at http://127.0.0.1:7822 using a pgstac backend
 
 
 					<div class="r-stack">
-						<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
+						<div class="fragment fade-out" data-fragment-index="1">
+							<p>&nbsp;</p>
+							<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 \
 	-c sentinel-2-l2a \
 	--intersects "$(cat ~/Locations/colorado.json)" \
 	--max-items 1000 --sortby="-properties.datetime" \
 	1000-sentinel-2-items.json
 						</code></pre>
-						<pre class="fragment"><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
+						</div>
+						<div class="fragment" data-fragment-index="1">
+							<p>stac-geoparquet</p>
+							<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 \
 	-c sentinel-2-l2a \
 	--intersects "$(cat ~/Locations/colorado.json)" \
 	--max-items 1000 --sortby="-properties.datetime" \
 	1000-sentinel-2-items.parquet
 						</code></pre>
-
+						</div>
 					</div>
 				</section>
 				<section>
