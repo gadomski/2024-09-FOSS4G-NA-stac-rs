@@ -239,32 +239,46 @@ $ stacrs item \
 				<section>
 					<h1>Translate</h1>
 
-					<pre><code data-trim data-noescape class="language-shell">
+					<div class="r-stack">
+						<pre><code data-trim data-noescape class="language-shell">
 $ stacrs translate \
 	1000-sentinel-items.json \
 	1000-sentinel-items.parquet
 					</code></pre>
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
-$ du -h 1000-sentinel-items.*
- 24M	1000-sentinel-items.json
-6.3M	1000-sentinel-items.parquet
+						<pre class="fragment" data-fragment-index="1"><code data-trim data-noescape class="language-shell">
+$ stacrs translate --geoparquet-compression snappy \
+	1000-sentinel-items.json \
+	1000-sentinel-items-snappy.parquet
 					</code></pre>
+					</div>
+					<div class="r-stack" style="margin-top: 16px;">
+						<pre><code data-trim data-noescape class="language-shell">
+							$ du -h 1000-sentinel-2-items* | sort -h
+							7.0M    1000-sentinel-2-items.parquet
+							 23M    1000-sentinel-2-items.json
+					</code></pre>
+						<pre class="fragment" data-fragment-index="1"><code data-trim data-noescape class="language-shell">
+							$ du -h 1000-sentinel-2-items* | sort -h
+							1.1M    1000-sentinel-2-items-snappy.parquet
+							7.0M    1000-sentinel-2-items.parquet
+							 23M    1000-sentinel-2-items.json
+					</code></pre>
+					</div>
 				</section>
 			</section>
 			<section>
 				<section>
-					<h2>Interlude: Geoparquet</h2>
+					<h1>Geoparquet</h1>
 
 					<ul>
 						<li>
-							Stores geospatial vector data in Parquet, a columnar format for tabular data
+							Stores geospatial vector data in Parquet
 						</li>
 						<li>
 							v1.1.0 release May 2024
 						</li>
 						<li>
 							<a href="https://github.com/geoarrow/geoarrow">geoarrow</a> is a related specification
-							that describes memory layout and field-level metadata
 						</li>
 					</ul>
 				</section>
@@ -278,23 +292,58 @@ $ du -h 1000-sentinel-items.*
 
 					<ul>
 						<li>
-							<a
-								href="https://github.com/stac-utils/stac-geoparquet">https://github.com/stac-utils/stac-geoparquet</a>
-						</li>
-						<li>
-							<strong>stac-rs</strong> includes an implementation
-						</li>
-						<li>
-							Moves <code>properties</code> to the top level, along with a couple other tweaks
+							Two known implementations:
+							<ul>
+								<li>
+									<a href="https://github.com/stac-utils/stac-geoparquet">stac-geoparquet</a>
+									(includes spec)
+								</li>
+								<li>
+									<strong>stac-rs</strong>
+								</li>
+							</ul>
 						</li>
 						<li>
 							😢 STAC isn't perfect for GeoParquet
 						</li>
 						<li>
-							<a
-								href="https://cloudnativegeo.org/blog/2024/08/introduction-to-stac-geoparquet/">https://cloudnativegeo.org/blog/2024/08/introduction-to-stac-geoparquet/</a>
+							For more, see the <a
+								href="https://cloudnativegeo.org/blog/2024/08/introduction-to-stac-geoparquet/">CNG blog
+								post</a>
 						</li>
 					</ul>
+				</section>
+				<section>
+					<h1>"Benchmarks"</h1>
+
+					<table style="font-size: x-large;">
+						<tr>
+							<th>Test</th>
+							<th>stac-rs</th>
+							<th>stac-geoparquet</th>
+							<th>Speedup</th>
+						</tr>
+						<tr>
+							<td>json -> parquet</td>
+							<td>1.281 s ± 0.024 s</td>
+							<td>1.869 s ± 0.25 s</td>
+							<td>30%</td>
+						</tr>
+						<tr>
+							<td>parquet -> json</td>
+							<td>2.352 s ± 0.031 s</td>
+							<td>3.352 s ± 0.066 s </td>
+							<td>30%</td>
+						</tr>
+					</table>
+
+					<div style="font-size: x-large; margin-top: 26px;">
+						<ul>
+							<li>1000 Sentinel-2 items over Colorado</li>
+							<li>Tests are reading data from disk and writing it back in the other format</li>
+							<li>SNAPPY compression for parquet data</li>
+						</ul>
+					</div>
 				</section>
 			</section>
 			<section>
@@ -320,13 +369,7 @@ Serving a STAC API at http://127.0.0.1:7822 using a memory backend
 
 					<p>
 
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
-	$ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 -c sentinel-2-l2a \
-		--intersects '{"type":"Point","coordinates":[-105.1019,40.1672]}' \
-		--max-items 1000 --sortby="-properties.datetime" 1000-sentinel-2-items.json
-						</code></pre>
-
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 	$ stacrs serve 1000-sentinel-items.json
 	Serving a STAC API at http://127.0.0.1:7822 using a memory backend
 						</code></pre>
@@ -340,7 +383,7 @@ Serving a STAC API at http://127.0.0.1:7822 using a memory backend
 					<h1>Serve pgstac</h1>
 
 					<p>
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ stacrs serve \
 	--pgstac postgresql://username:password@localhost:5432/postgis \
 	1000-sentinel-2-items.json   
@@ -399,19 +442,19 @@ Serving a STAC API at http://127.0.0.1:7822 using a pgstac backend
 
 
 					<div class="r-stack">
-						<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+						<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 \
 	-c sentinel-2-l2a \
 	--intersects "$(cat ~/Locations/colorado.json)" \
-	--max-items 100 --sortby="-properties.datetime" \
-	100-sentinel-2-items.json
+	--max-items 1000 --sortby="-properties.datetime" \
+	1000-sentinel-2-items.json
 						</code></pre>
-						<pre class="fragment"><code data-trim data-noescape class="language-shell" style="font-size: large;">
+						<pre class="fragment"><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 \
 	-c sentinel-2-l2a \
 	--intersects "$(cat ~/Locations/colorado.json)" \
-	--max-items 100 --sortby="-properties.datetime" \
-	100-sentinel-2-items.parquet
+	--max-items 1000 --sortby="-properties.datetime" \
+	1000-sentinel-2-items.parquet
 						</code></pre>
 
 					</div>
@@ -423,32 +466,26 @@ $ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 \
 						⚠️ Experimental
 					</p>
 
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+					<pre><code data-trim data-noescape class="language-shell">
 $ cargo install stac-cli -F duckdb
 						</code></pre>
 
 					<p>Then:</p>
 
 					<div class="r-stack">
-						<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
-$ stacrs search 100-sentinel-2-items.parquet \
-	--intersects "$(cat ~/Locations/longmont.json)" \
-	| jq length
-3
+						<pre><code data-trim data-noescape class="language-shell">
+$ stacrs search 1000-sentinel-2-items.parquet \
+	--intersects "$(cat ~/Locations/longmont.json)"
 						</code></pre>
-						<pre class="fragment"><code data-trim data-noescape class="language-shell" style="font-size: large;">
-$ stacrs search http://localhost:8080/100-sentinel-2-items.parquet \
-	--intersects "$(cat ~/Locations/longmont.json)" \
-	| jq length
-3
+						<pre class="fragment"><code data-trim data-noescape class="language-shell">
+$ stacrs search \
+	http://localhost:8080/1000-sentinel-2-items.parquet \
+	--intersects "$(cat ~/Locations/longmont.json)"
 						</code></pre>
 					</div>
 				</section>
 				<section>
-					<div class="r-stack">
-						<img src="img/stac-usage.png" class="fragment fade-out" data-fragment-index="1" />
-						<img src="img/stac-usage-no-api-server.png" class="fragment" data-fragment-index="1" />
-					</div>
+					<img src="img/stac-usage-no-api-server.png" />
 				</section>
 			</section>
 			<section>

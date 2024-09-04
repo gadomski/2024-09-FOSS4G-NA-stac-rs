@@ -8,8 +8,15 @@ Let's not take these too seriously, but we do want to offer some sort of compari
 
 | Test | stac-rs | stac-fastapi | Speedup |
 | -- | -- | -- | -- |
-| fetch-one-page | 48.3 ms ± 3.2 ms | 62.0 ms ± 2.2 ms| 22% |
-| search-all | 4.460 s ± 0.061 s | 5.894 s ± 0.045 s | 24% |
+| fetch one page | 48.3 ms ± 3.2 ms | 62.0 ms ± 2.2 ms| 22% |
+| search all | 4.460 s ± 0.061 s | 5.894 s ± 0.045 s | 24% |
+
+### stac-geoparquet
+
+| Test | stac-rs | stac-geoparquet | Speedup |
+| -- | -- | -- | -- |
+| to parquet | 1.281 s ± 0.024 s | 1.869 s ± 0.25 s | 30% |
+| from parquet | | 3.352 s ± 0.066 s | |
 
 ## Usage
 
