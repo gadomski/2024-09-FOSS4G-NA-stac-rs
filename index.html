@@ -203,11 +203,11 @@ $ stacrs item an-id > item.json && cat item.json
 }
 					</code></pre>
 
-						<pre><code data-trim data-noescape class="language-shell">
+						<pre class="fragment"><code data-trim data-noescape class="language-shell">
 $ stacrs item an-id item.json && cat item.json
 {"type":"Feature","stac_version":"1.0.0","id":"an-id","geometry":null,"properties":{"datetime":"2024-09-06T16:48:10.156061Z"},"links":[],"assets":{}}                                        
 					</code></pre>
-						<pre><code data-trim data-noescape class="language-shell">
+						<pre class="fragment"><code data-trim data-noescape class="language-shell">
 $ stacrs item an-id | stacrs validate && echo "OK"
 OK
 					</code></pre>
@@ -446,33 +446,29 @@ Serving a STAC API at http://127.0.0.1:7822 using a pgstac backend
 				<section>
 					<h1>Consumers</h1>
 
-					<img src="img/eating.jpg" width="50%" />
+					<img src="img/consumers.png" class="r-stretch" />
 				</section>
 				<section>
 					<h1>Search</h1>
 
 
+					<p class="r-stack">
+						<span class="fragment fade-out" data-fragment-index="1">&nbsp;</span>
+						<span class="fragment" data-fragment-index="1">stac-geoparquet</span>
+					</p>
 					<div class="r-stack">
-						<div class="fragment fade-out" data-fragment-index="1">
-							<p>&nbsp;</p>
-							<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
+						<pre class="fragment fade-out" data-fragment-index="1"><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 \
-	-c sentinel-2-l2a \
-	--intersects "$(cat ~/Locations/colorado.json)" \
+	-c sentinel-2-l2a --intersects @colorado.json \
 	--max-items 1000 --sortby="-properties.datetime" \
 	1000-sentinel-2-items.json
 						</code></pre>
-						</div>
-						<div class="fragment" data-fragment-index="1">
-							<p>stac-geoparquet</p>
-							<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
+						<pre class="fragment" data-fragment-index="1"><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
 $ stacrs search https://planetarycomputer.microsoft.com/api/stac/v1 \
-	-c sentinel-2-l2a \
-	--intersects "$(cat ~/Locations/colorado.json)" \
+	-c sentinel-2-l2a --intersects @colorado.json \
 	--max-items 1000 --sortby="-properties.datetime" \
 	1000-sentinel-2-items.parquet
 						</code></pre>
-						</div>
 					</div>
 				</section>
 				<section>
@@ -491,12 +487,12 @@ $ cargo install stac-cli -F duckdb
 					<div class="r-stack">
 						<pre><code data-trim data-noescape class="language-shell">
 $ stacrs search 1000-sentinel-2-items.parquet \
-	--intersects "$(cat ~/Locations/longmont.json)"
+	--intersects @longmont.json
 						</code></pre>
 						<pre class="fragment"><code data-trim data-noescape class="language-shell">
 $ stacrs search \
 	http://localhost:8080/1000-sentinel-2-items.parquet \
-	--intersects "$(cat ~/Locations/longmont.json)"
+	--intersects @longmont.json
 						</code></pre>
 					</div>
 				</section>
