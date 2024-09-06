@@ -21,16 +21,14 @@
 			<section>
 				<section>
 					<h1>stac-rs</h1>
-					<p>
-						<img src="img/rustacean-and-stac.png" width="30%" />
-					</p>
+					<img src="img/rustacean-and-stac.png" class="r-stretch" />
 					<p>
 						High-performance, reliable STAC tooling with Rust
 					</p>
-					<p>
+					<p style="font-size: 24px;">
 						by Pete Gadomski
 					</p>
-					<p style="font-size: 24px;">
+					<p style="font-size: 16px;">
 						<a href="https://github.com/gadomski/">@gadomski</a>
 					</p>
 				</section>
@@ -46,9 +44,8 @@
 					<h1>A bit about STAC</h1>
 
 					<ul>
-						<li>Spatio-Temporal Asset Catalog specification</li>
-						<li>Based on the GeoJSON specification</li>
-						<li>Open community specification</li>
+						<li>Spatio-Temporal Asset Catalog</li>
+						<li>Open community specification, based on GeoJSON</li>
 						<li><a href="https://github.com/radiantearth/stac-spec/">Core</a> v1.0.0 released May 2021</li>
 						<li><a href="https://github.com/radiantearth/stac-api-spec">API</a> v1.0.0 released April 2023
 						</li>
@@ -68,7 +65,7 @@
 				</section>
 				<section>
 					<h1>Development</h1>
-					<img src="img/open-spec-development.png" />
+					<img src="img/open-spec-development.png" class="r-stretch" />
 				</section>
 				<section>
 					<div class="r-stack">
@@ -84,7 +81,7 @@
 				</section>
 				<section>
 					<h1>STAC usage</h1>
-					<img src="img/stac-usage.png" width="70%" />
+					<img src="img/stac-usage.png" class="r-stretch" />
 				</section>
 			</section>
 			<section>
@@ -100,6 +97,11 @@
 						</li>
 						<li>Language binding support (e.g. Python, WASM)</li>
 					</ul>
+				</section>
+				<section>
+					<p>
+						There's a bit for data producers too, don't worry
+					</p>
 				</section>
 				<section>
 					<h1>Caveat</h1>
@@ -160,19 +162,13 @@ Options:
 				<section>
 					<h1>For producers</h1>
 
-					<img src="img/chef.png" width="50%" />
+					<img src="img/producers.png" class="r-stretch" />
 				</section>
 				<section>
 					<h1>Create</h1>
 
-					<p>
-						Pete to make notes about how this is unixy
-					</p>
-
 					<pre><code data-trim data-noescape class="language-shell">
 $ stacrs item an-id
-					</code></pre>
-					<pre><code data-trim data-noescape class="language-json">
 {
 	"type": "Feature",
 	"stac_version": "1.0.0",
@@ -187,6 +183,37 @@ $ stacrs item an-id
 					</code></pre>
 				</section>
 				<section>
+					<h1>
+						UNIX-y
+					</h1>
+
+					<div>
+						<pre><code data-trim data-noescape class="language-shell">
+$ stacrs item an-id > item.json && cat item.json
+{
+	"type": "Feature",
+	"stac_version": "1.0.0",
+	"id": "an-id",
+	"geometry": null,
+	"properties": {
+		"datetime": "2024-08-27T20:37:29.293151Z"
+	},
+	"links": [],
+	"assets": {}
+}
+					</code></pre>
+
+						<pre><code data-trim data-noescape class="language-shell">
+$ stacrs item an-id item.json && cat item.json
+{"type":"Feature","stac_version":"1.0.0","id":"an-id","geometry":null,"properties":{"datetime":"2024-09-06T16:48:10.156061Z"},"links":[],"assets":{}}                                        
+					</code></pre>
+						<pre><code data-trim data-noescape class="language-shell">
+$ stacrs item an-id | stacrs validate && echo "OK"
+OK
+					</code></pre>
+					</div>
+				</section>
+				<section>
 					<h1>Create (raster)</h1>
 
 					<pre style="font-size: large;"><code data-trim data-noescape class="language-shell">
@@ -198,6 +225,13 @@ $ stacrs item \
 						<img src="img/raster.png" width="40%" />
 						<img src="img/item.png" width="40%" />
 					</div>
+				</section>
+				<section>
+					<h1>Create many</h1>
+
+					<pre style="font-size: large;"><code data-trim data-noescape class="language-shell">
+$ stacrs items images/*.tif > item-collection.json
+					</code></pre>
 				</section>
 				<section>
 					<h1>Use other tools</h1>
@@ -216,30 +250,9 @@ $ stacrs item \
 					<h1>Migrate</h1>
 
 					<pre><code data-trim data-noescape class="language-shell">
-						$ stacrs migrate bands-v1.0.0.json --version 1.1.0-beta.1 \
-							| jq '.stac_version, .assets.example.bands'   
-					</code></pre>
-					<pre><code data-trim data-noescape class="language-json">
+						$ stacrs migrate bands-v1.0.0.json --version 1.1.0-beta.1 | \
+							 jq '.stac_version'   
 						"1.1.0-beta.1"
-						[
-						  {
-							"name": "r",
-							"eo:common_name": "red"
-						  },
-						  {
-							"name": "g",
-							"eo:common_name": "green"
-						  },
-						  {
-							"name": "b",
-							"eo:common_name": "blue"
-						  },
-						  {
-							"name": "nir",
-							"eo:common_name": "nir",
-							"raster:spatial_resolution": 30
-						  }
-						]
 					</code></pre>
 				</section>
 				<section>
