@@ -370,48 +370,39 @@ $ stacrs translate --geoparquet-compression snappy \
 				<section>
 					<h1>For servers</h1>
 
-					<img src="img/waiter.jpg" width="50%" />
+					<img src="img/servers.png" class="r-stretch" />
 				</section>
 				<section>
 					<h1>Serve</h1>
 
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: medium;">
 $ stacrs serve spec-examples/v1.0.0/collection.json
-Serving a STAC API at http://127.0.0.1:7822 using a memory backend
+Serving a STAC API at http://127.0.0.1:7822 using a memory backend (loaded 1 collection and 3 items)
 					</code></pre>
 
-					<p>
-						<img src="img/stac-browser.png">
-					</p>
+					<img src="img/collection.gif" class="r-stretch">
 				</section>
 				<section>
 					<h1>Serve items</h1>
 
 					<p>
 
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: medium;">
 	$ stacrs serve 1000-sentinel-items.json
-	Serving a STAC API at http://127.0.0.1:7822 using a memory backend
+	Serving a STAC API at http://127.0.0.1:7822 using a memory backend (loaded 1 collection and 1000 items)
 						</code></pre>
 					</p>
 
-					<p>
-						<img src="img/stac-browser-items.png">
-					</p>
+					<img src="img/items.gif" class="r-stretch">
 				</section>
 				<section>
 					<h1>Serve pgstac</h1>
 
 					<p>
-					<pre><code data-trim data-noescape class="language-shell" style="font-size: x-large;">
-$ stacrs serve \
-	--pgstac postgresql://username:password@localhost:5432/postgis \
-	1000-sentinel-2-items.json   
+					<pre><code data-trim data-noescape class="language-shell" style="font-size: large;">
+$ stacrs serve --pgstac postgresql://username:password@localhost:5432/postgis
 Serving a STAC API at http://127.0.0.1:7822 using a pgstac backend
 						</code></pre>
-					</p>
-					<p>
-						<img src="img/stac-browser-items.png">
 					</p>
 				</section>
 				<section>
